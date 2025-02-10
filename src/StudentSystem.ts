@@ -9,24 +9,44 @@
 type StudentStatus = "active" | "graduated" | "dropped";
 
 type Student = {
+    studentId: number,
+    name: string,
+    age: number,
+    subjects: string[],
+    status: StudentStatus
 
 }
 
 const students: Student[] = [];
 
-function addStudent(studentId, name, age, subjects, status) {
+function addStudent(studentId: number, name: string, age: number, subjects: string[], status: StudentStatus): Student {
+    const newStudent = {
+        studentId: studentId,
+        name: name,
+        age: age,
+        subjects: subjects,
+        status: status
+    }
+
+    students.push(newStudent);
+    return newStudent;
+  }
+
+function updateStatus(studentId: number, status: StudentStatus) {
+    const selectedStudent = students.find((student: Student) => student.studentId === studentId);
+    selectedStudent.status = status;
+    return `${selectedStudent.name} has ${status}`;
+}
+
+function addSubject(studentId: number, subject: string): string {
+    const selectedStudent = students.find((student: Student) => student.studentId === studentId);
+    selectedStudent.subjects.push(subject);
+    return `${subject} added to ${selectedStudent.name}'s subjects`;
 
 }
 
-function updateStatus(studentId, status) {
-
-}
-
-function addSubject(studentId, subject) {
-
-}
-
-function getStudent(studentId) {
+function getStudent(studentId: number): Student {
+    return students.find((student: Student) => student.studentId === studentId);
 
 }
 
